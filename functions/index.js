@@ -31,19 +31,21 @@ exports.emojify =
         console.log("emojifying!");
 
         // Get the value from the 'text' key of the message
-        const originalText = change.before.val();
+        const originalText = change.after.val();
         const emojifiedText = emojifyText(originalText);
 
         // Return a JavaScript Promise to update the database node
-        // return change.data.ref.set(emojifiedText);
+        change.after.ref.parent.child("text").set(emojifiedText);
+        return 0;
     });
 
 // Returns text with keywords replaced by emoji
 // Replacing with the regular expression /.../ig does a case-insensitive
 // search (i flag) for all occurrences (g flag) in the string
 function emojifyText(text) {
+    console.log(text);
     var emojifiedText = text;
-    emojifiedText = emojifiedText.replace(/\blol\b/ig, "Hadi");
-    emojifiedText = emojifiedText.replace(/\bcat\b/ig, "Lan");
+    emojifiedText = emojifiedText.replace(/\blol\b/ig, "a");
+    emojifiedText = emojifiedText.replace(/\bcat\b/ig, "b");
     return emojifiedText;
 }
